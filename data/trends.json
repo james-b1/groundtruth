@@ -1,0 +1,82 @@
+{
+  "_note": "Curated, hand-verified trends. Every figure here traces to the linked source. The LLM only rewrites the TONE of `summary` into plain English at request time — it never invents or alters the numbers. To keep the brief fresh, update these entries (or wire lib/data.js to a live source later).",
+  "trends": [
+    {
+      "id": "extreme-poverty",
+      "topic": "Poverty",
+      "title": "Extreme poverty keeps falling",
+      "metric": "9%",
+      "metricLabel": "share of the world in extreme poverty, down from 38% in 1990",
+      "summary": "In 1990, about 38% of people lived on less than $2.15 a day. Today it's under 10% — the steepest drop in human history, even as the global population grew by billions.",
+      "source": {
+        "name": "Our World in Data — World Bank (PIP)",
+        "url": "https://ourworldindata.org/extreme-poverty"
+      }
+    },
+    {
+      "id": "child-mortality",
+      "topic": "Health",
+      "title": "Fewer children are dying young",
+      "metric": "37",
+      "metricLabel": "deaths per 1,000 children under 5, down from 93 in 1990",
+      "summary": "The global under-five death rate has more than halved since 1990, from 93 per 1,000 live births to about 37. That's roughly 15,000 fewer children dying every day.",
+      "source": {
+        "name": "UN IGME / Our World in Data",
+        "url": "https://ourworldindata.org/child-mortality"
+      }
+    },
+    {
+      "id": "solar-cost",
+      "topic": "Clean energy",
+      "title": "Solar power got radically cheaper",
+      "metric": "-90%",
+      "metricLabel": "drop in the cost of solar electricity over the last decade",
+      "summary": "The price of electricity from new solar farms has fallen by around 90% in a decade, making it the cheapest source of new power across most of the world. Solar and wind now supply a record share of global electricity.",
+      "source": {
+        "name": "Our World in Data — energy prices",
+        "url": "https://ourworldindata.org/cheap-renewables-growth"
+      }
+    },
+    {
+      "id": "guinea-worm",
+      "topic": "Disease",
+      "title": "Guinea worm disease is nearly gone",
+      "metric": "14",
+      "metricLabel": "human cases in 2023, down from 3.5 million in 1986",
+      "summary": "Guinea worm disease once infected an estimated 3.5 million people a year. Thanks to a decades-long eradication campaign, there were just 14 reported human cases in 2023 — it's on track to be the second human disease ever eradicated, after smallpox.",
+      "source": {
+        "name": "The Carter Center",
+        "url": "https://www.cartercenter.org/health/guinea_worm/index.html"
+      }
+    },
+    {
+      "id": "ozone-layer",
+      "topic": "Conservation",
+      "title": "The ozone layer is healing",
+      "metric": "~2066",
+      "metricLabel": "projected year the ozone layer fully recovers",
+      "summary": "After the world phased out ozone-destroying chemicals under the Montreal Protocol, the ozone layer is on track to recover to 1980 levels by around 2066 over Antarctica. It's the clearest example of a global environmental problem being fixed by coordinated action.",
+      "source": {
+        "name": "UN Environment Programme / WMO",
+        "url": "https://www.unep.org/news-and-stories/story/ozone-layer-recovery-track-helping-avoid-global-warming-05degc"
+      }
+    }
+  ],
+  "contrast": {
+    "headline": {
+      "text": "\"Measles cases surge to highest level in years\"",
+      "note": "The kind of alarming, true-but-narrow headline that dominates a news feed.",
+      "source": {
+        "name": "Representative recent news headline",
+        "url": "https://www.who.int/news-room/fact-sheets/detail/measles"
+      }
+    },
+    "trend": {
+      "text": "Measles deaths have still fallen by roughly 80% since 2000, as global vaccination coverage climbed and the vaccine prevented an estimated 60 million deaths.",
+      "source": {
+        "name": "WHO — Measles fact sheet",
+        "url": "https://www.who.int/news-room/fact-sheets/detail/measles"
+      }
+    }
+  }
+}
