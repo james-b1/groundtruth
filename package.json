@@ -1,0 +1,17 @@
+{
+  "name": "groundtruth",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A daily briefing on what's improving in the world, backed by real data.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "^15.1.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  }
+}
