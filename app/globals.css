@@ -1,0 +1,240 @@
+:root {
+  --bg: #f7f6f2;
+  --card: #ffffff;
+  --ink: #1c2a24;
+  --muted: #5f6f68;
+  --accent: #1f8a5b;
+  --accent-soft: #e6f2ec;
+  --border: #e5e3dc;
+  --shadow: 0 1px 2px rgba(20, 40, 30, 0.04), 0 8px 24px rgba(20, 40, 30, 0.05);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 5rem;
+}
+
+/* Header */
+.masthead {
+  margin-bottom: 1.75rem;
+}
+.masthead h1 {
+  font-size: 1.9rem;
+  margin: 0 0 0.25rem;
+  letter-spacing: -0.02em;
+}
+.masthead .date {
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin: 0;
+}
+.masthead .tagline {
+  color: var(--muted);
+  margin: 0.5rem 0 0;
+}
+
+/* Section label */
+.section-label {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--muted);
+  margin: 2rem 0 0.75rem;
+}
+
+/* Trend card */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.1rem 1.2rem;
+  margin-bottom: 0.9rem;
+  box-shadow: var(--shadow);
+}
+.card .topic {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  background: var(--accent-soft);
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  margin-bottom: 0.6rem;
+}
+.card h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.15rem;
+  letter-spacing: -0.01em;
+}
+.card .metric {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.card .metric .value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+.card .metric .label {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.card p {
+  margin: 0 0 0.75rem;
+}
+.card .source a {
+  color: var(--muted);
+  font-size: 0.82rem;
+  text-decoration: none;
+  border-bottom: 1px dotted var(--muted);
+}
+.card .source a:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* Contrast block */
+.contrast {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.contrast .row {
+  padding: 1rem 1.2rem;
+}
+.contrast .row.headline {
+  border-bottom: 1px solid var(--border);
+}
+.contrast .kicker {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.35rem;
+}
+.contrast .headline .kicker {
+  color: #b4432f;
+}
+.contrast .trend .kicker {
+  color: var(--accent);
+}
+.contrast p {
+  margin: 0 0 0.5rem;
+}
+.contrast .source a {
+  color: var(--muted);
+  font-size: 0.82rem;
+  text-decoration: none;
+  border-bottom: 1px dotted var(--muted);
+}
+
+/* Chat */
+.chat {
+  margin-top: 2.5rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.1rem 1.2rem;
+  box-shadow: var(--shadow);
+}
+.chat h3 {
+  margin: 0 0 0.75rem;
+  font-size: 1.05rem;
+}
+.chat .log {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-bottom: 0.85rem;
+}
+.chat .msg {
+  padding: 0.6rem 0.8rem;
+  border-radius: 10px;
+  font-size: 0.94rem;
+  max-width: 90%;
+}
+.chat .msg.user {
+  align-self: flex-end;
+  background: var(--accent-soft);
+  color: var(--ink);
+}
+.chat .msg.bot {
+  align-self: flex-start;
+  background: #f2f1ec;
+  white-space: pre-wrap;
+}
+.chat form {
+  display: flex;
+  gap: 0.5rem;
+}
+.chat input {
+  flex: 1;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.6rem 0.75rem;
+  font-size: 0.95rem;
+  font-family: inherit;
+}
+.chat input:focus {
+  outline: 2px solid var(--accent-soft);
+  border-color: var(--accent);
+}
+.chat button {
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 10px;
+  padding: 0 1rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+.chat button:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+.chat .hint {
+  color: var(--muted);
+  font-size: 0.82rem;
+  margin: 0.6rem 0 0;
+}
+
+/* States */
+.state {
+  color: var(--muted);
+  padding: 2rem 0;
+}
+
+footer {
+  margin-top: 3rem;
+  color: var(--muted);
+  font-size: 0.82rem;
+  text-align: center;
+}
