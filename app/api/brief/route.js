@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { getBrief } from "@/lib/brief";
 
-// Always run on the server at request time (the brief has a daily in-memory cache).
 export const dynamic = "force-dynamic";
 
 export async function GET() {
