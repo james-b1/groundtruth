@@ -4,8 +4,7 @@ import { groqChat, hasGroqKey } from "@/lib/groq";
 
 export const dynamic = "force-dynamic";
 
-// The chat is grounded ONLY in the curated dataset. It must not answer beyond
-// the numbers it's given, and it should point people back to sources.
+/** Builds the system prompt from curated trends and contrast data. */
 function buildSystemPrompt() {
   const trends = getTrends();
   const contrast = getContrast();
@@ -34,6 +33,7 @@ DATA:
 ${JSON.stringify(context, null, 2)}`;
 }
 
+/** Grounded chat over today's sourced dataset. */
 export async function POST(req) {
   let message;
   try {
@@ -49,7 +49,7 @@ export async function POST(req) {
   if (!hasGroqKey()) {
     return NextResponse.json({
       reply:
-        "The chat needs a Groq API key to run. Add GROQ_API_KEY to your .env file (see .env.example) and restart. In the meantime, scroll up — today's brief still works without a key.",
+        "The chat needs a Groq API key to run. Add GROQ_API_KEY to your .env file (see .env.example) and restart. In the meantime, scroll up. Today's brief still works without a key.",
     });
   }
 
