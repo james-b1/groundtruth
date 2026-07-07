@@ -12,6 +12,9 @@
 .env
 .env*.local
 
+# generated live-data cache (rebuilt by `npm run refresh`)
+/data/trends.cache.json
+
 # misc
 .DS_Store
 *.pem
