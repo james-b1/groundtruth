@@ -1,8 +1,10 @@
 import "./globals.css";
+import "./fonts.css";
+import "./theme.css";
+
 
 export const metadata = {
-  title: "Groundtruth — what's getting better",
-  description: "A calm daily briefing on what's improving in the world, backed by real data.",
+  title: "Progress Pulse",
 };
 
 export default function RootLayout({ children }) {
