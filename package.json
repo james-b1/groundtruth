@@ -2,12 +2,14 @@
   "name": "groundtruth",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "description": "A daily briefing on what's improving in the world, backed by real data.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "refresh": "node scripts/refresh.js"
   },
   "dependencies": {
     "lucide-react": "^1.23.0",

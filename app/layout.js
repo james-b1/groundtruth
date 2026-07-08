@@ -4,7 +4,8 @@ import "./theme.css";
 
 
 export const metadata = {
-  title: "Progress Pulse",
+  title: "Groundtruth",
+  description: "Daily sourced briefing on trends that are improving.",
 };
 
 export default function RootLayout({ children }) {

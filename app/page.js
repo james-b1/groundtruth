@@ -1,21 +1,75 @@
-import { Navbar } from "@/components/Navbar";
-import { HeroSection } from "@/components/HeroSection";
-import DailyTrends from "@/components/DailyTrends";
-import TodayVsTrend from "@/components/TodayVsTrend";
-import Footer from "@/components/Footer";
+"use client";
+
+import { useEffect, useState } from "react";
+import TrendCard from "@/components/TrendCard";
+import ContrastBlock from "@/components/ContrastBlock";
+import ChatBox from "@/components/ChatBox";
+import NewsletterPreview from "@/components/NewsletterPreview";
+
+function formatDate(iso) {
+  try {
+    return new Date(iso + "T00:00:00").toLocaleDateString(undefined, {
+      weekday: "long",
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+    });
+  } catch {
+    return iso;
+  }
+}
+
+function formatAsOf(iso) {
+  try {
+    return new Date(iso).toLocaleString(undefined, {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+    });
+  } catch {
+    return null;
+  }
+}
+
+export default function Home() {
+  const [brief, setBrief] = useState(null);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetch("/api/brief")
+      .then((res) => {
+        if (!res.ok) throw new Error("bad response");
+        return res.json();
+      })
+      .then(setBrief)
+      .catch(() => setError("Could not load today's brief. Try refreshing."));
+  }, []);
 
 export default function Page() {
   return (
-    <main className="bg-background text-foreground min-h-screen font-inter">
-
-      {/* NAVBAR */}
-      <Navbar />
+    <main className="wrap">
+      <header className="masthead">
+        <h1>Groundtruth</h1>
+        <p className="date">{brief ? formatDate(brief.date) : "Today's brief"}</p>
+        <p className="tagline">Sourced trends that are getting better.</p>
+        {brief?.asOf ? (
+          <p className="as-of">Live data refreshed {formatAsOf(brief.asOf)}</p>
+        ) : brief ? (
+          <p className="as-of">Curated figures. Run npm run refresh for live data.</p>
+        ) : null}
+      </header>
 
       {/* HERO SECTION */}
       <HeroSection />
 
-      {/* DAILY TRENDS */}
-      <DailyTrends />
+      {brief && (
+        <>
+          <div className="section-label">Trends</div>
+          {brief.trends.map((t) => (
+            <TrendCard key={t.id} trend={t} />
+          ))}
 
       {/* TODAY VS TREND */}
       <TodayVsTrend />
@@ -23,6 +77,15 @@ export default function Page() {
       {/* FOOTER */}
       <Footer />
 
+          <NewsletterPreview brief={brief} />
+
+          <footer>
+            Each claim links to its source. Live cards use OWID when the cache is
+            fresh; otherwise the curated figures. Groq may rephrase summaries; it
+            does not add new numbers.
+          </footer>
+        </>
+      )}
     </main>
   );
 }
