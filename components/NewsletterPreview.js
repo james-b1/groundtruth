@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useId, useState } from "react";
+import { createPortal } from "react-dom";
 
 function weekLabel(isoDate) {
   try {
@@ -168,7 +169,7 @@ export default function NewsletterPreview({ brief }) {
         Preview this week&apos;s email
       </button>
 
-      {open && (
+      {open && createPortal(
         <div
           className="newsletter-overlay"
           role="presentation"
@@ -210,7 +211,8 @@ export default function NewsletterPreview({ brief }) {
             />
             <p className="newsletter-disclaimer">Preview only.</p>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </section>
   );

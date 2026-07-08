@@ -44,7 +44,10 @@ body {
 
 .reveal-visible {
   opacity: 1;
-  transform: translateY(0);
+  /* `none`, not translateY(0): a lingering transform would make this element the
+     containing block for any position:fixed descendant (e.g. a modal overlay),
+     trapping it inside the section instead of the viewport. */
+  transform: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
