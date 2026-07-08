@@ -89,6 +89,8 @@ export default function Page() {
           </section>
         )}
 
+        <AskAboutData />
+
         {/* 🔹 Footer */}
         <Footer light />
       </div>

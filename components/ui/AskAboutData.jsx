@@ -11,26 +11,41 @@ const exampleQuestions = [
   "How is access to clean water improving?",
 ];
 
-const mockResponse =
-  "Great question. According to FAO data, the number of people facing chronic hunger rose from 572 million in 2014 to around 733 million in 2023 — largely due to COVID-19 disruptions and regional conflicts. However, the proportion of the world's population experiencing hunger has remained relatively stable at around 9%, down from 14.7% in 2000. So the absolute number has risen, but the rate continues to fall as population grows. The key distinction is between short-term shocks and the long-run trend.";
-
 export default function AskAboutData() {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  function handleSend(text) {
-    const question = text ?? input;
-    if (!question.trim()) return;
+  async function handleSend(text) {
+    const question = (text ?? input).trim();
+    if (!question || loading) return;
+
+    const history = messages.map((m) => ({
+      role: m.role,
+      content: m.text,
+    }));
 
     setMessages((m) => [...m, { role: "user", text: question }]);
     setInput("");
     setLoading(true);
 
-    setTimeout(() => {
-      setMessages((m) => [...m, { role: "assistant", text: mockResponse }]);
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: question, history }),
+      });
+      const data = await res.json();
+      const reply = data.reply || data.error || "Something went wrong.";
+      setMessages((m) => [...m, { role: "assistant", text: reply }]);
+    } catch {
+      setMessages((m) => [
+        ...m,
+        { role: "assistant", text: "Could not reach the server." },
+      ]);
+    } finally {
       setLoading(false);
-    }, 1200);
+    }
   }
 
   return (
@@ -155,7 +170,7 @@ export default function AskAboutData() {
                 <input
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  onKeyDown={(e) => e.key === "Enter" && handleSend()}
+                  onKeyDown={(e) => e.key === "Enter" && !loading && handleSend()}
                   placeholder="Ask a question about global progress data..."
                   style={{
                     fontFamily: "Inter, sans-serif",
