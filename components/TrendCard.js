@@ -1,12 +1,12 @@
-export default function TrendCard({ trend, light }) {
+export default function TrendCard({ trend }) {
   return (
-    <article className={`card ${light ? "card-light" : ""}`}>
-      <div className="card-top">
+    <article className="trend-card">
+      <div className="flex items-center flex-wrap gap-1">
         <span className="topic">{trend.topic}</span>
         {trend.live ? (
           <span className="badge live">Live</span>
         ) : (
-          <span className="badge curated">Curated</span>
+          <span className="badge">Curated</span>
         )}
       </div>
       <h3>{trend.title}</h3>

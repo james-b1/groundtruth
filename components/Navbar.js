@@ -1,33 +1,22 @@
 "use client";
 
 import Link from "next/link";
-import { TrendingUp } from "lucide-react";
 
 export default function Navbar() {
   return (
-    <header className="bg-[#0A0E1A] border-b border-white/8">
-      <div className="max-w-[1440px] mx-auto px-8 h-14 flex items-center justify-between font-inter">
-
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-2">
-          <div className="w-6 h-6 rounded-md bg-emerald-400 flex items-center justify-center">
-            <TrendingUp
-              className="w-3.5 h-3.5 text-[#0A0E1A]"
-              strokeWidth={2.5}
-            />
-          </div>
-
-          <span className="text-white font-semibold text-[15px] tracking-tight">
-            GroundTruth
-          </span>
-        </Link>
-
-        {/* CTA */}
-        <a
-          href="#"
-          className="px-4 py-1.5 rounded-full bg-white/10 text-white text-sm font-medium hover:bg-white/20 border border-white/10 transition-colors"
+    <header className="sticky top-0 z-20 border-b border-line bg-paper/90 backdrop-blur">
+      <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+        <Link
+          href="/"
+          className="font-serif text-xl text-ink hover:text-accent transition-colors duration-200"
         >
-          Get Started
+          Groundtruth
+        </Link>
+        <a
+          href="#ask"
+          className="btn-press border border-ink px-4 py-2 text-sm font-medium hover:bg-ink hover:text-white"
+        >
+          Ask the data
         </a>
       </div>
     </header>

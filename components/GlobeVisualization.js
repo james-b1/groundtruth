@@ -25,6 +25,10 @@ export function GlobeVisualization() {
     const CX = SIZE / 2;
     const CY = SIZE / 2;
 
+    const prefersReduced =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
     let animId;
     let rotationOffset = 0;
 
@@ -34,7 +38,7 @@ export function GlobeVisualization() {
       const graticule = geoGraticule().step([15, 15]);
 
       function draw() {
-        rotationOffset += 0.018;
+        rotationOffset += prefersReduced ? 0 : 0.018;
 
         const projection = geoOrthographic()
           .scale(SCALE)
@@ -55,8 +59,8 @@ export function GlobeVisualization() {
           CY,
           SCALE
         );
-        oceanGrad.addColorStop(0, "#0D2040");
-        oceanGrad.addColorStop(1, "#050E1C");
+        oceanGrad.addColorStop(0, "#1a3d32");
+        oceanGrad.addColorStop(1, "#0f241c");
         ctx.beginPath();
         path({ type: "Sphere" });
         ctx.fillStyle = oceanGrad;
@@ -65,7 +69,7 @@ export function GlobeVisualization() {
         // Lat/lon grid
         ctx.beginPath();
         path(graticule());
-        ctx.strokeStyle = "rgba(255,255,255,0.045)";
+        ctx.strokeStyle = "rgba(31, 77, 61, 0.12)";
         ctx.lineWidth = 0.5;
         ctx.stroke();
 
@@ -78,12 +82,12 @@ export function GlobeVisualization() {
           path(f);
 
           if (isNA) {
-            ctx.fillStyle = "rgba(52, 211, 153, 0.88)";
-            ctx.strokeStyle = "rgba(16, 185, 129, 0.5)";
+            ctx.fillStyle = "rgba(31, 77, 61, 0.75)";
+            ctx.strokeStyle = "rgba(22, 56, 44, 0.5)";
             ctx.lineWidth = 0.6;
           } else {
-            ctx.fillStyle = "rgba(18, 46, 82, 0.92)";
-            ctx.strokeStyle = "rgba(56, 110, 180, 0.20)";
+            ctx.fillStyle = "rgba(31, 77, 61, 0.15)";
+            ctx.strokeStyle = "rgba(31, 77, 61, 0.25)";
             ctx.lineWidth = 0.4;
           }
 
@@ -100,8 +104,8 @@ export function GlobeVisualization() {
           CY - 20,
           SCALE * 0.58
         );
-        naGlow.addColorStop(0, "rgba(52, 211, 153, 0.10)");
-        naGlow.addColorStop(1, "rgba(52, 211, 153, 0)");
+        naGlow.addColorStop(0, "rgba(31, 77, 61, 0.12)");
+        naGlow.addColorStop(1, "rgba(31, 77, 61, 0)");
         ctx.beginPath();
         path({ type: "Sphere" });
         ctx.fillStyle = naGlow;
@@ -116,7 +120,7 @@ export function GlobeVisualization() {
           CY - 95,
           190
         );
-        spec.addColorStop(0, "rgba(255,255,255,0.09)");
+        spec.addColorStop(0, "rgba(255,255,255,0.06)");
         spec.addColorStop(1, "rgba(255,255,255,0)");
         ctx.beginPath();
         path({ type: "Sphere" });
@@ -132,9 +136,9 @@ export function GlobeVisualization() {
           CY,
           SCALE + 26
         );
-        atmo.addColorStop(0, "rgba(96, 165, 250, 0.20)");
-        atmo.addColorStop(0.5, "rgba(59, 130, 246, 0.09)");
-        atmo.addColorStop(1, "rgba(59, 130, 246, 0)");
+        atmo.addColorStop(0, "rgba(31, 77, 61, 0.15)");
+        atmo.addColorStop(0.5, "rgba(31, 77, 61, 0.06)");
+        atmo.addColorStop(1, "rgba(31, 77, 61, 0)");
         ctx.beginPath();
         ctx.arc(CX, CY, SCALE + 26, 0, Math.PI * 2);
         ctx.fillStyle = atmo;
@@ -143,14 +147,15 @@ export function GlobeVisualization() {
         // Globe rim
         ctx.beginPath();
         path({ type: "Sphere" });
-        ctx.strokeStyle = "rgba(96, 165, 250, 0.15)";
+        ctx.strokeStyle = "rgba(31, 77, 61, 0.2)";
         ctx.lineWidth = 1.5;
         ctx.stroke();
 
-        animId = requestAnimationFrame(draw);
+        animId = prefersReduced ? null : requestAnimationFrame(draw);
       }
 
       draw();
+      if (prefersReduced) return;
     }
 
     init();

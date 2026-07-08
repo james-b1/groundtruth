@@ -4,41 +4,24 @@ module.exports = {
     "./app/**/*.{js,jsx,ts,tsx}",
     "./components/**/*.{js,jsx,ts,tsx}",
   ],
-  darkMode: ["class"],
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
-
-        card: "var(--card)",
-        cardForeground: "var(--card-foreground)",
-
-        primary: "var(--primary)",
-        primaryForeground: "var(--primary-foreground)",
-
-        secondary: "var(--secondary)",
-        secondaryForeground: "var(--secondary-foreground)",
-
-        muted: "var(--muted)",
-        mutedForeground: "var(--muted-foreground)",
-
-        accent: "var(--accent)",
-        accentForeground: "var(--accent-foreground)",
-
-        border: "var(--border)",
-        input: "var(--input-background)",
+        ink: "var(--color-ink)",
+        "ink-soft": "var(--color-ink-soft)",
+        line: "var(--color-line)",
+        accent: "var(--color-accent)",
+        "accent-deep": "var(--color-accent-deep)",
+        "accent-soft": "var(--color-accent-soft)",
+        warn: "var(--color-warn)",
+        "warn-soft": "var(--color-warn-soft)",
+        muted: "var(--color-muted)",
+        paper: "var(--color-paper)",
+        "paper-warm": "var(--color-paper-warm)",
       },
-
-      borderRadius: {
-        sm: "var(--radius-sm)",
-        md: "var(--radius-md)",
-        lg: "var(--radius-lg)",
-        xl: "var(--radius-xl)",
-      },
-
       fontFamily: {
-        inter: ["Inter", "sans-serif"],
+        sans: "var(--font-sans)",
+        serif: "var(--font-serif)",
       },
     },
   },

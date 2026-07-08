@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight } from "lucide-react";
+import Reveal from "@/components/ui/Reveal";
 
 const pairs = [
   {
@@ -18,7 +18,6 @@ const pairs = [
         "CPI peaked at 9.1% in June 2022. It has since fallen to 3.3% — a clear downward trajectory over 24 months.",
       source: "U.S. Bureau of Labor Statistics",
       metric: "9.1% → 3.3%",
-      metricColor: "#34D399",
     },
   },
   {
@@ -36,178 +35,44 @@ const pairs = [
         "The ILO reports global employment-to-population ratios are at their highest since the 1990s, with 3.4 billion people in formal work.",
       source: "ILO World Employment Report 2024",
       metric: "3.4B in formal work",
-      metricColor: "#34D399",
     },
   },
 ];
 
-export default function TodayVsTrend({ light }) {
-  const sectionClass = light ? "py-14" : "py-14 bg-[#080D1A]";
-  const headerClass = light
-    ? "text-[#6B7280] text-xs font-semibold tracking-wider uppercase mb-6"
-    : "text-white/40 text-xs font-semibold tracking-wider uppercase mb-6";
-
+export default function TodayVsTrend() {
   return (
-    <section className={sectionClass}>
-      <div className="max-w-[1440px] mx-auto px-8">
-
-        {/* Header */}
-        <h2 className={headerClass}>
-          Today vs. The Trend
-        </h2>
-
-        <div className="space-y-4">
-            {pairs.map((pair, i) => (
-            <div
-              key={i}
-              className={`grid grid-cols-[1fr_40px_1fr] rounded-2xl overflow-hidden border transition-all duration-300 ${
-                light
-                  ? "border-gray-200 hover:border-emerald-200/40"
-                  : "border-white/5 hover:border-emerald-400/20"
-              }`}
-              style={{
-                boxShadow: light ? "0 4px 20px rgba(9,10,11,0.06)" : "0 4px 20px rgba(0,0,0,0.3)",
-                backgroundColor: light ? "#ffffff" : "rgba(255,255,255,0.03)",
-              }}
-            >
-              {/* News side */}
-              <div
-                className="px-7 py-6"
-                style={{ backgroundColor: light ? "#fbfbfb" : "rgba(254,252,247,0.06)" }}
-              >
-                <p
-                  style={{
-                    fontFamily: "Inter, sans-serif",
-                    fontWeight: 500,
-                    fontSize: "0.6875rem",
-                    color: "#FBBF24",
-                    textTransform: "uppercase",
-                    letterSpacing: "0.07em",
-                    marginBottom: "0.75rem",
-                  }}
-                >
+    <section className="max-w-5xl mx-auto px-6 py-14 border-b border-line">
+      <Reveal>
+        <h2 className="section-label">Today vs. the trend</h2>
+      </Reveal>
+      <div className="space-y-4">
+        {pairs.map((pair, i) => (
+          <Reveal key={pair.news.headline} delay={i * 70}>
+            <div className="grid md:grid-cols-2 border border-line bg-white panel-hover">
+              <div className="p-6 border-b md:border-b-0 md:border-r border-line bg-paper-warm">
+                <p className="text-[0.65rem] uppercase tracking-wider text-warn font-medium mb-2">
                   {pair.news.label}
                 </p>
-
-                <p
-                  style={{
-                    fontFamily: "Inter, sans-serif",
-                    fontWeight: 600,
-                    fontSize: "0.9375rem",
-                    color: light ? "#0B1525" : "rgba(255,255,255,0.95)",
-                    lineHeight: 1.45,
-                    letterSpacing: "-0.01em",
-                    marginBottom: "0.5rem",
-                  }}
-                >
-                  {pair.news.headline}
-                </p>
-
-                <p
-                  style={{
-                    fontFamily: "Inter, sans-serif",
-                    fontWeight: 400,
-                    fontSize: "0.8125rem",
-                    color: light ? "rgba(11,21,37,0.7)" : "rgba(255,255,255,0.55)",
-                    lineHeight: 1.65,
-                  }}
-                >
-                  {pair.news.detail}
-                </p>
-
-                <p
-                  style={{
-                    fontFamily: "Inter, sans-serif",
-                    fontWeight: 400,
-                    fontSize: "0.6875rem",
-                    color: light ? "rgba(11,21,37,0.5)" : "rgba(255,255,255,0.25)",
-                    marginTop: "1rem",
-                  }}
-                >
-                  {pair.news.source}
-                </p>
+                <p className="font-medium text-ink leading-snug">{pair.news.headline}</p>
+                <p className="mt-2 text-sm text-ink-soft leading-relaxed">{pair.news.detail}</p>
+                <p className="mt-4 text-xs text-muted">{pair.news.source}</p>
               </div>
-
-              {/* Arrow divider */}
-              <div
-                className="flex items-center justify-center"
-                style={{ backgroundColor: light ? "#fafafa" : "rgba(255,255,255,0.04)" }}
-              >
-                <ArrowRight className={`w-4 h-4 ${light ? "text-[#9CA3AF]" : "text-white/30"}`} />
-              </div>
-
-              {/* Trend side */}
-              <div
-                className="px-7 py-6"
-                style={{ backgroundColor: light ? "#ffffff" : "rgba(246,253,249,0.06)" }}
-              >
-                <div className="flex items-center justify-between mb-3">
-                  <p
-                    style={{
-                      fontFamily: "Inter, sans-serif",
-                      fontWeight: 500,
-                      fontSize: "0.6875rem",
-                      color: "#34D399",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.07em",
-                    }}
-                  >
+              <div className="p-6">
+                <div className="flex items-start justify-between gap-3 mb-2">
+                  <p className="text-[0.65rem] uppercase tracking-wider text-accent font-medium">
                     {pair.trend.label}
                   </p>
-
-                  <span
-                    style={{
-                      fontFamily: "Inter, sans-serif",
-                      fontWeight: 600,
-                      fontSize: "0.6875rem",
-                      color: pair.trend.metricColor,
-                    }}
-                  >
+                  <span className="text-xs font-semibold text-accent tabular-nums shrink-0">
                     {pair.trend.metric}
                   </span>
                 </div>
-
-                <p
-                  style={{
-                    fontFamily: "Inter, sans-serif",
-                    fontWeight: 600,
-                    fontSize: "0.9375rem",
-                    color: light ? "#0B1525" : "rgba(255,255,255,0.95)",
-                    lineHeight: 1.45,
-                    letterSpacing: "-0.01em",
-                    marginBottom: "0.5rem",
-                  }}
-                >
-                  {pair.trend.headline}
-                </p>
-
-                <p
-                  style={{
-                    fontFamily: "Inter, sans-serif",
-                    fontWeight: 400,
-                    fontSize: "0.8125rem",
-                    color: light ? "rgba(11,21,37,0.7)" : "rgba(255,255,255,0.55)",
-                    lineHeight: 1.65,
-                  }}
-                >
-                  {pair.trend.detail}
-                </p>
-
-                <p
-                  style={{
-                    fontFamily: "Inter, sans-serif",
-                    fontWeight: 400,
-                    fontSize: "0.6875rem",
-                    color: light ? "rgba(11,21,37,0.5)" : "rgba(255,255,255,0.25)",
-                    marginTop: "1rem",
-                  }}
-                >
-                  {pair.trend.source}
-                </p>
+                <p className="font-medium text-ink leading-snug">{pair.trend.headline}</p>
+                <p className="mt-2 text-sm text-ink-soft leading-relaxed">{pair.trend.detail}</p>
+                <p className="mt-4 text-xs text-muted">{pair.trend.source}</p>
               </div>
             </div>
-          ))}
-        </div>
+          </Reveal>
+        ))}
       </div>
     </section>
   );

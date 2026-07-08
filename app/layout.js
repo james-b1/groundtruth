@@ -1,7 +1,16 @@
+import { Inter, Newsreader } from "next/font/google";
 import "./globals.css";
-import "./fonts.css";
-import "./theme.css";
 
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+});
+
+const newsreader = Newsreader({
+  subsets: ["latin"],
+  variable: "--font-newsreader",
+  style: ["normal"],
+});
 
 export const metadata = {
   title: "Groundtruth",
@@ -10,9 +19,10 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="en" className={`${inter.variable} ${newsreader.variable}`}>
+      <body className="min-h-screen bg-paper font-sans text-ink antialiased tabular-nums">
+        {children}
+      </body>
     </html>
   );
 }
-

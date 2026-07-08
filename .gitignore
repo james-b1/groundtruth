@@ -15,6 +15,9 @@
 # generated live-data cache (rebuilt by `npm run refresh`)
 /data/trends.cache.json
 
+# design scratch (mockups only, not shipped)
+/scratch/
+
 # misc
 .DS_Store
 *.pem
