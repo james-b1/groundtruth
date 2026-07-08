@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import TrendCard from "@/components/TrendCard";
 import ContrastBlock from "@/components/ContrastBlock";
 import ChatBox from "@/components/ChatBox";
+import NewsletterPreview from "@/components/NewsletterPreview";
 
 function formatDate(iso) {
   try {
@@ -73,6 +74,8 @@ export default function Home() {
           <ContrastBlock contrast={brief.contrast} />
 
           <ChatBox />
+
+          <NewsletterPreview brief={brief} />
 
           <footer>
             Each claim links to its source. Live cards use OWID when the cache is
