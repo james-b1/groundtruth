@@ -94,6 +94,7 @@
   ],
   "contrast": {
     "headline": {
+      "query": "measles outbreak",
       "text": "\"Measles cases surge to highest level in years\"",
       "note": "A true but narrow headline of the kind that fills a news feed.",
       "source": {

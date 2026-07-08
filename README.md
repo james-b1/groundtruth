@@ -18,7 +18,7 @@ News favors alarm. Gains in poverty, disease, and clean energy often get skipped
 | ----- | ------ |
 | Framework | Next.js (App Router) |
 | LLM | Groq (`llama-3.3-70b-versatile`) via `fetch` |
-| Data | `data/trends.json` plus optional OWID refresh cache |
+| Data | `data/trends.json` + live refresh cache (OWID figures, GDELT headline) |
 | Endpoints | `GET /api/brief`, `POST /api/chat`, `POST /api/refresh` |
 | Hosting | Local; Vercel free tier if needed |
 
@@ -74,16 +74,17 @@ groundtruth/
 ## Data pipeline
 
 ```
-npm run refresh            OWID CSV → normalize → data/trends.cache.json
-        │
-   POST /api/refresh ──────┘
+npm run refresh            OWID CSV (trend figures)  ┐
+        │                  GDELT   (today's headline) ┼─ normalize → data/trends.cache.json
+   POST /api/refresh ──────────────────────────────── ┘
                                                        ▼
 GET /api/brief ──► lib/data.js: cache if present, else trends.json
 ```
 
-- Trends with a `live` block in [`data/trends.json`](data/trends.json) refresh from OWID. `npm run refresh` writes `trends.cache.json` and sets `asOf`.
-- Trends without `live` stay static. Failed fetches for a live trend keep that card's curated figures.
-- Cron example: `0 6 * * * cd /path/to/groundtruth && npm run refresh`.
+- Trends with a `live` block in [`data/trends.json`](data/trends.json) refresh their figures from OWID. `npm run refresh` writes `trends.cache.json` and sets `asOf`.
+- The contrast's "today's headline" refreshes from **GDELT** (keyless news search) when its `headline.query` is set; the curated headline is the fallback.
+- Trends without `live` stay static. Any failed fetch keeps that card's (or the headline's) curated content — the brief never breaks.
+- Cron example: `0 6 * * * cd /path/to/groundtruth && npm run refresh`. GDELT allows ~1 request / 5s, so keep refreshes to once daily.
 
 ### Add a live trend
 
@@ -93,7 +94,14 @@ GET /api/brief ──► lib/data.js: cache if present, else trends.json
 
 ### Add a source besides OWID
 
-Add a fetcher under `lib/sources/` that returns `{ latest:{year,value}, baseline:{year,value}, sourceUrl }`, then register it in `SOURCES` in [`lib/fetchTrends.js`](lib/fetchTrends.js).
+For **trend figures**, add a fetcher under `lib/sources/` that returns
+`{ latest:{year,value}, baseline:{year,value}, sourceUrl }`, then register it in
+`SOURCES` in [`lib/fetchTrends.js`](lib/fetchTrends.js).
+
+The **contrast headline** uses a different shape — see
+[`lib/sources/gdelt.js`](lib/sources/gdelt.js), wired via `buildContrast()` in
+[`lib/fetchTrends.js`](lib/fetchTrends.js). Swapping in NewsAPI (or another
+provider) means writing one fetcher that returns `{ text, source, seenDate }`.
 
 ## Scope
 

@@ -32,6 +32,7 @@ export default function TodayVsTrend({ brief }) {
               >
                 {headline.source.name} ↗
               </a>
+              {headline.seenDate ? <span> · {headline.seenDate}</span> : null}
             </p>
           </div>
           <div className="p-6">

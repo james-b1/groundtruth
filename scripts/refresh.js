@@ -11,6 +11,10 @@ console.log(`Refreshed ${result.trends.length} trends (${live.length} live) → 
 for (const t of live) {
   console.log(`  • ${t.id}: ${t.metric} (${t.metricLabel})`);
 }
+const hl = result.contrast?.headline;
+if (hl) {
+  console.log(`Contrast headline: ${hl.text} — ${hl.source?.name}${hl.seenDate ? ` (${hl.seenDate})` : ""}`);
+}
 if (result.errors.length) {
   console.warn(`\n${result.errors.length} source error(s), used curated fallback:`);
   for (const e of result.errors) console.warn(`  ! ${e}`);
