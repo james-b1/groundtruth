@@ -1,13 +1,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import TrendCard from "@/components/TrendCard";
-import ContrastBlock from "@/components/ContrastBlock";
-import ChatBox from "@/components/ChatBox";
-import NewsletterPreview from "@/components/NewsletterPreview";
+
+import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
+import DailyTrends from "@/components/DailyTrends";
 import TodayVsTrend from "@/components/TodayVsTrend";
+import TrendCard from "@/components/TrendCard";
+import NewsletterPreview from "@/components/NewsletterPreview";
 import Footer from "@/components/Footer";
+import AskAboutData from "@/components/ui/AskAboutData";
+
 
 function formatDate(iso) {
   try {
@@ -53,46 +56,42 @@ export default function Page() {
   }, []);
 
   return (
-    <main className="wrap">
-      <header className="masthead">
-        <h1>Groundtruth</h1>
-        <p className="date">
-          {brief ? formatDate(brief.date) : "Today's brief"}
-        </p>
-        <p className="tagline">Sourced trends that are getting better.</p>
-        {brief?.asOf ? (
-          <p className="as-of">
-            Live data refreshed {formatAsOf(brief.asOf)}
-          </p>
-        ) : brief ? (
-          <p className="as-of">
-            Curated figures. Run npm run refresh for live data.
-          </p>
-        ) : null}
-      </header>
+    <div
+      className="min-h-screen bg-[#080D1A] text-white"
+      style={{ fontFamily: "Inter, sans-serif" }}
+    >
+      {/* 🔹 Top Navigation */}
+      <Navbar />
 
+      {/* 🔹 Hero Section */}
       <HeroSection />
 
-      {brief && (
-        <>
-          <div className="section-label">Trends</div>
-          {brief.trends.map((t) => (
-            <TrendCard key={t.id} trend={t} />
-          ))}
+      {/* Sections under the hero use a light background (extends to footer) */}
+      <div className="site-light bg-[#f6f7f8] text-[#0B1525]">
+        <DailyTrends light />
 
-          <TodayVsTrend />
+        <TodayVsTrend light />
 
-          <NewsletterPreview brief={brief} />
+        {/* 🔹 API-driven Trend Cards + Newsletter */}
+        {brief && (
+          <section id="trends" className="max-w-[900px] mx-auto px-8 py-16">
+            <h2 className="text-[#6B7280] text-xs font-semibold tracking-wider uppercase mb-6">
+              Explore All Trends
+            </h2>
 
-          <Footer />
+            <div className="space-y-4 mb-10">
+              {brief.trends.map((t) => (
+                <TrendCard key={t.id} trend={t} light />
+              ))}
+            </div>
 
-          <footer>
-            Each claim links to its source. Live cards use OWID when the cache is
-            fresh; otherwise the curated figures. Groq may rephrase summaries; it
-            does not add new numbers.
-          </footer>
-        </>
-      )}
-    </main>
+            <NewsletterPreview brief={brief} />
+          </section>
+        )}
+
+        {/* 🔹 Footer */}
+        <Footer light />
+      </div>
+    </div>
   );
 }

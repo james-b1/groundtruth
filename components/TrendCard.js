@@ -1,6 +1,6 @@
-export default function TrendCard({ trend }) {
+export default function TrendCard({ trend, light }) {
   return (
-    <article className="card">
+    <article className={`card ${light ? "card-light" : ""}`}>
       <div className="card-top">
         <span className="topic">{trend.topic}</span>
         {trend.live ? (
