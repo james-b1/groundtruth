@@ -367,9 +367,7 @@ body {
   padding: 2rem 0;
 }
 
-footer {
-  margin-top: 3rem;
-  color: var(--muted);
-  font-size: 0.82rem;
-  text-align: center;
+/* Inter font applied globally */
+html {
+  font-family: 'Inter', sans-serif;
 }

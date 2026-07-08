@@ -47,6 +47,7 @@ export default function Home() {
       .catch(() => setError("Could not load today's brief. Try refreshing."));
   }, []);
 
+export default function Page() {
   return (
     <main className="wrap">
       <header className="masthead">
@@ -60,8 +61,8 @@ export default function Home() {
         ) : null}
       </header>
 
-      {error && <div className="state">{error}</div>}
-      {!brief && !error && <div className="state">Loading today's brief…</div>}
+      {/* HERO SECTION */}
+      <HeroSection />
 
       {brief && (
         <>
@@ -70,10 +71,11 @@ export default function Home() {
             <TrendCard key={t.id} trend={t} />
           ))}
 
-          <div className="section-label">Today vs. the trend</div>
-          <ContrastBlock contrast={brief.contrast} />
+      {/* TODAY VS TREND */}
+      <TodayVsTrend />
 
-          <ChatBox />
+      {/* FOOTER */}
+      <Footer />
 
           <NewsletterPreview brief={brief} />
 

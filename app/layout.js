@@ -1,4 +1,7 @@
 import "./globals.css";
+import "./fonts.css";
+import "./theme.css";
+
 
 export const metadata = {
   title: "Groundtruth",
