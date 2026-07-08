@@ -5,6 +5,9 @@ import TrendCard from "@/components/TrendCard";
 import ContrastBlock from "@/components/ContrastBlock";
 import ChatBox from "@/components/ChatBox";
 import NewsletterPreview from "@/components/NewsletterPreview";
+import HeroSection from "@/components/HeroSection";
+import TodayVsTrend from "@/components/TodayVsTrend";
+import Footer from "@/components/Footer";
 
 function formatDate(iso) {
   try {
@@ -33,7 +36,7 @@ function formatAsOf(iso) {
   }
 }
 
-export default function Home() {
+export default function Page() {
   const [brief, setBrief] = useState(null);
   const [error, setError] = useState(null);
 
@@ -44,24 +47,30 @@ export default function Home() {
         return res.json();
       })
       .then(setBrief)
-      .catch(() => setError("Could not load today's brief. Try refreshing."));
+      .catch(() =>
+        setError("Could not load today's brief. Try refreshing.")
+      );
   }, []);
 
-export default function Page() {
   return (
     <main className="wrap">
       <header className="masthead">
         <h1>Groundtruth</h1>
-        <p className="date">{brief ? formatDate(brief.date) : "Today's brief"}</p>
+        <p className="date">
+          {brief ? formatDate(brief.date) : "Today's brief"}
+        </p>
         <p className="tagline">Sourced trends that are getting better.</p>
         {brief?.asOf ? (
-          <p className="as-of">Live data refreshed {formatAsOf(brief.asOf)}</p>
+          <p className="as-of">
+            Live data refreshed {formatAsOf(brief.asOf)}
+          </p>
         ) : brief ? (
-          <p className="as-of">Curated figures. Run npm run refresh for live data.</p>
+          <p className="as-of">
+            Curated figures. Run npm run refresh for live data.
+          </p>
         ) : null}
       </header>
 
-      {/* HERO SECTION */}
       <HeroSection />
 
       {brief && (
@@ -71,13 +80,11 @@ export default function Page() {
             <TrendCard key={t.id} trend={t} />
           ))}
 
-      {/* TODAY VS TREND */}
-      <TodayVsTrend />
-
-      {/* FOOTER */}
-      <Footer />
+          <TodayVsTrend />
 
           <NewsletterPreview brief={brief} />
+
+          <Footer />
 
           <footer>
             Each claim links to its source. Live cards use OWID when the cache is
