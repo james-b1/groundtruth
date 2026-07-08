@@ -259,6 +259,108 @@ body {
   margin: 0.6rem 0 0;
 }
 
+/* Newsletter preview */
+.newsletter {
+  margin-top: 2.5rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.1rem 1.2rem;
+  box-shadow: var(--shadow);
+}
+.newsletter h3 {
+  margin: 0 0 0.4rem;
+  font-size: 1.05rem;
+}
+.newsletter-copy {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin: 0 0 0.85rem;
+}
+.newsletter-btn {
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 10px;
+  padding: 0.55rem 1rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  font-family: inherit;
+}
+.newsletter-btn:hover {
+  filter: brightness(0.96);
+}
+.newsletter-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgba(28, 42, 36, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+.newsletter-modal {
+  width: min(640px, 100%);
+  max-height: min(90vh, 820px);
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 16px 48px rgba(20, 40, 30, 0.2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.newsletter-chrome {
+  border-bottom: 1px solid var(--border);
+  background: #faf9f6;
+}
+.newsletter-chrome-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.newsletter-close {
+  border: 1px solid var(--border);
+  background: #fff;
+  border-radius: 8px;
+  padding: 0.3rem 0.7rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  font-family: inherit;
+}
+.newsletter-meta {
+  padding: 0.7rem 1rem 0.85rem;
+  font-size: 0.85rem;
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.newsletter-meta .meta-label {
+  display: inline-block;
+  min-width: 3.4rem;
+  color: var(--muted);
+  font-weight: 600;
+}
+.newsletter-frame {
+  flex: 1;
+  width: 100%;
+  min-height: 360px;
+  border: 0;
+  background: #f7f6f2;
+}
+.newsletter-disclaimer {
+  margin: 0;
+  padding: 0.65rem 1rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+  background: #fff;
+}
+
 /* States */
 .state {
   color: var(--muted);
