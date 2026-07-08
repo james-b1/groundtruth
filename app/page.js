@@ -30,8 +30,8 @@ export default function Page() {
     <div className="min-h-screen bg-paper">
       <Navbar />
       <HeroSection />
-      <DailyTrends />
-      <TodayVsTrend />
+      <DailyTrends brief={brief} />
+      <TodayVsTrend brief={brief} />
 
       {error && (
         <p className="state max-w-5xl mx-auto px-6">{error}</p>
