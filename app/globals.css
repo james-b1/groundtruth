@@ -1,12 +1,14 @@
+@import "tailwindcss";
+
 :root {
-  --bg: #f7f6f2;
-  --card: #ffffff;
-  --ink: #1c2a24;
-  --muted: #5f6f68;
-  --accent: #1f8a5b;
-  --accent-soft: #e6f2ec;
-  --border: #e5e3dc;
-  --shadow: 0 1px 2px rgba(20, 40, 30, 0.04), 0 8px 24px rgba(20, 40, 30, 0.05);
+  --bg: #080D1A;
+  --card: rgba(13, 20, 38, 0.65);
+  --ink: #ffffff;
+  --muted: rgba(255, 255, 255, 0.6);
+  --accent: #34D399;
+  --accent-soft: rgba(52, 211, 153, 0.08);
+  --border: rgba(255, 255, 255, 0.08);
+  --shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
 }
 
 * {
@@ -76,6 +78,14 @@ body {
   padding: 1.1rem 1.2rem;
   margin-bottom: 0.9rem;
   box-shadow: var(--shadow);
+  backdrop-filter: blur(12px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.card:hover {
+  border-color: rgba(52, 211, 153, 0.2);
+  background: rgba(13, 20, 38, 0.85);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
 }
 .card .card-top {
   display: flex;
@@ -110,7 +120,7 @@ body {
 }
 .card .badge.curated {
   color: var(--muted);
-  background: #f2f1ec;
+  background: rgba(255, 255, 255, 0.06);
 }
 .card .data-year {
   color: var(--muted);
@@ -220,7 +230,8 @@ body {
 }
 .chat .msg.bot {
   align-self: flex-start;
-  background: #f2f1ec;
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
   white-space: pre-wrap;
 }
 .chat form {
@@ -229,6 +240,8 @@ body {
 }
 .chat input {
   flex: 1;
+  background: rgba(255, 255, 255, 0.04);
+  color: #fff;
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 0.6rem 0.75rem;
@@ -242,7 +255,7 @@ body {
 .chat button {
   border: none;
   background: var(--accent);
-  color: #fff;
+  color: #080D1A;
   border-radius: 10px;
   padding: 0 1rem;
   font-weight: 600;
@@ -258,7 +271,7 @@ body {
   font-size: 0.82rem;
   margin: 0.6rem 0 0;
 }
-
+ 
 /* Newsletter preview */
 .newsletter {
   margin-top: 2.5rem;
@@ -266,7 +279,9 @@ body {
   border: 1px solid var(--border);
   border-radius: 14px;
   padding: 1.1rem 1.2rem;
+  margin-bottom: 0.9rem;
   box-shadow: var(--shadow);
+  backdrop-filter: blur(12px);
 }
 .newsletter h3 {
   margin: 0 0 0.4rem;
@@ -280,22 +295,24 @@ body {
 .newsletter-btn {
   border: none;
   background: var(--accent);
-  color: #fff;
+  color: #080D1A;
   border-radius: 10px;
   padding: 0.55rem 1rem;
   font-weight: 600;
   font-size: 0.95rem;
   cursor: pointer;
   font-family: inherit;
+  transition: background-color 0.2s;
 }
 .newsletter-btn:hover {
-  filter: brightness(0.96);
+  background: #34d399cc;
 }
 .newsletter-overlay {
   position: fixed;
   inset: 0;
   z-index: 50;
-  background: rgba(28, 42, 36, 0.45);
+  background: rgba(8, 13, 26, 0.8);
+  backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -304,16 +321,17 @@ body {
 .newsletter-modal {
   width: min(640px, 100%);
   max-height: min(90vh, 820px);
-  background: #fff;
+  background: #0A0E1A;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 14px;
-  box-shadow: 0 16px 48px rgba(20, 40, 30, 0.2);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.7);
   display: flex;
   flex-direction: column;
   overflow: hidden;
 }
 .newsletter-chrome {
   border-bottom: 1px solid var(--border);
-  background: #faf9f6;
+  background: #0E1629;
 }
 .newsletter-chrome-top {
   display: flex;
@@ -324,17 +342,22 @@ body {
 }
 .newsletter-close {
   border: 1px solid var(--border);
-  background: #fff;
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
   border-radius: 8px;
   padding: 0.3rem 0.7rem;
   font-size: 0.85rem;
   cursor: pointer;
   font-family: inherit;
+  transition: background-color 0.2s;
+}
+.newsletter-close:hover {
+  background: rgba(255, 255, 255, 0.1);
 }
 .newsletter-meta {
   padding: 0.7rem 1rem 0.85rem;
   font-size: 0.85rem;
-  color: var(--ink);
+  color: #fff;
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
@@ -350,7 +373,7 @@ body {
   width: 100%;
   min-height: 360px;
   border: 0;
-  background: #f7f6f2;
+  background: #080D1A;
 }
 .newsletter-disclaimer {
   margin: 0;
@@ -358,7 +381,7 @@ body {
   font-size: 0.8rem;
   color: var(--muted);
   border-top: 1px solid var(--border);
-  background: #fff;
+  background: #0E1629;
 }
 
 /* States */
@@ -371,3 +394,44 @@ body {
 html {
   font-family: 'Inter', sans-serif;
 }
+
+/* Light theme overrides when wrapped in .site-light */
+.site-light .card {
+  background: #ffffff;
+  border: 1px solid #e8e8e8;
+  color: #0B1525;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+.site-light .card:hover {
+  /* disable animated hover transform and heavy shadow in light theme */
+  border-color: rgba(16,185,129,0.06);
+  background: #fbfbfb;
+  transform: none;
+  box-shadow: none;
+}
+.site-light .card .topic {
+  color: #6B7280;
+  background: rgba(16,24,40,0.02);
+}
+.site-light .card .badge.curated {
+  color: #6B7280;
+  background: rgba(0,0,0,0.02);
+}
+.site-light .card h3 { color: #0B1525; }
+.site-light .card .metric .value { color: #16A34A; }
+.site-light .card .metric .label { color: #6B7280; }
+.site-light .card .source a { color: #6B7280; border-bottom-color: transparent; }
+
+/* Newsletter in light wrapper */
+.site-light .newsletter {
+  background: #ffffff;
+  border: 1px solid #e8e8e8;
+  color: #0B1525;
+  box-shadow: none;
+}
+.site-light .newsletter h3 { color: #0B1525; }
+.site-light .newsletter .newsletter-copy { color: #475569; }
+.site-light .newsletter .newsletter-btn { background: #34D399; color: #062020; }
+
+

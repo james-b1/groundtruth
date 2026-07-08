@@ -1,10 +1,15 @@
 "use client";
-import { useState } from "react";
-import { Send, ChevronRight } from "lucide-react";
-import { GlobeVisualization } from "./GlobeVisualization";
-import { DEFAULT_RUNTIME_WEBPACK, DEFAULT_SERIF_FONT } from "next/dist/shared/lib/constants";
 
-const chips = ["What good happened today?", "Show me health trends", "Is poverty rising?"];
+import { useState } from "react";
+import { Send } from "lucide-react";
+import { GlobeVisualization } from "./GlobeVisualization";
+
+
+const chips = [
+  "What good happened today?",
+  "Show me health trends",
+  "Is poverty rising?",
+];
 
 const mockAnswer =
   "Based on World Bank data, extreme poverty has fallen from 36% of the global population in 1990 to under 9% today — lifting over 1.3 billion people out of deprivation, even as the world's population grew by 2.5 billion.";
@@ -23,9 +28,11 @@ export default function HeroSection() {
   function ask(q) {
     const query = q ?? input;
     if (!query.trim()) return;
+
     setInput("");
     setAnswer("");
     setLoading(true);
+
     setTimeout(() => {
       setLoading(false);
       setAnswer(mockAnswer);
@@ -35,26 +42,31 @@ export default function HeroSection() {
   return (
     <section
       className="relative overflow-hidden"
-      style={{ background: "linear-gradient(160deg, #080D1A 0%, #0B1525 55%, #06101E 100%)" }}
+      style={{
+        background:
+          "linear-gradient(160deg, #080D1A 0%, #0B1525 55%, #06101E 100%)",
+      }}
     >
-      <div className="max-w-[1440px] mx-auto px-8 py-16 grid grid-cols-[1fr_1fr] gap-8 items-center min-h-[580px]">
+      <div className="max-w-[1440px] mx-auto px-8 py-20 grid grid-cols-[1fr_1fr] gap-12 items-center min-h-[620px]">
         
-        {/* Left — text */}
+        {/* LEFT — TEXT */}
         <div className="z-10">
+          {/* Date */}
           <div className="flex items-center gap-2 mb-8">
             <div className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
             <span
+              className="text-[13px]"
               style={{
                 fontFamily: "Inter, sans-serif",
                 fontWeight: 400,
-                fontSize: "0.8125rem",
                 color: "rgba(255,255,255,0.38)",
               }}
             >
-              Today's Brief — {today}
+               {today}
             </span>
           </div>
 
+          {/* Heading */}
           <h1
             style={{
               fontFamily: "Inter, sans-serif",
@@ -67,49 +79,43 @@ export default function HeroSection() {
           >
             The world is more
             <br />
-            than today's
+            than today’s
             <br />
             <span style={{ color: "#34D399" }}>headlines.</span>
           </h1>
 
+          {/* Subtext */}
           <p
+            className="mt-6 max-w-[28rem]"
             style={{
               fontFamily: "Inter, sans-serif",
               fontWeight: 400,
               fontSize: "1rem",
               color: "rgba(255,255,255,0.45)",
               lineHeight: 1.75,
-              marginTop: "1.5rem",
-              maxWidth: "28rem",
             }}
           >
-            We surface long-term global progress using verified data — so you stay informed without the overwhelm.
+            We show long‑term global progress using verified data so you
+            stay informed without being overwhelmed.
           </p>
 
+          {/* Buttons */}
           <div className="flex items-center gap-3 mt-8">
             <a
               href="#trends"
-              style={{ fontFamily: "Inter, sans-serif", fontWeight: 500, fontSize: "0.875rem" }}
               className="px-5 py-2.5 rounded-full bg-emerald-400 text-[#080D1A] hover:bg-emerald-300 transition-colors"
-            >
-              Read today's brief
-            </a>
-            <a
-              href="#"
               style={{
                 fontFamily: "Inter, sans-serif",
-                fontWeight: 400,
+                fontWeight: 500,
                 fontSize: "0.875rem",
-                color: "rgba(255,255,255,0.35)",
               }}
-              className="flex items-center gap-1 hover:text-white transition-colors"
             >
-              How it works <ChevronRight className="w-3.5 h-3.5" />
+              Read today’s trends
             </a>
           </div>
         </div>
 
-        {/* Right — globe + ask */}
+        {/* RIGHT — GLOBE + ASK BOX */}
         <div className="relative flex flex-col items-center">
           
           {/* Globe */}
@@ -117,41 +123,45 @@ export default function HeroSection() {
             <GlobeVisualization />
           </div>
 
-          {/* Ask interface */}
+          {/* Ask Box */}
           <div
             className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[380px] rounded-2xl border border-white/10 p-4"
-            style={{ background: "rgba(8,13,26,0.78)", backdropFilter: "blur(16px)" }}
+            style={{
+              background: "rgba(8,13,26,0.78)",
+              backdropFilter: "blur(16px)",
+            }}
           >
             <p
+              className="mb-2"
               style={{
                 fontFamily: "Inter, sans-serif",
                 fontWeight: 500,
                 fontSize: "0.75rem",
                 color: "rgba(255,255,255,0.35)",
-                marginBottom: "0.625rem",
               }}
             >
-              Ask about today's trends
+              Ask about today’s trends
             </p>
 
+            {/* Input */}
             <div className="flex items-center gap-2 bg-white/6 border border-white/8 rounded-xl px-3.5 py-2.5 focus-within:border-emerald-400/40 transition-colors">
               <input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && ask()}
-                placeholder="What's improving in the world?"
-                className="placeholder:text-white/25"
+                placeholder="What’s improving in the world?"
+                className="placeholder:text-white/25 w-full"
                 style={{
                   fontFamily: "Inter, sans-serif",
                   fontWeight: 400,
                   fontSize: "0.8125rem",
-                  color: "#FFFFFF",
+                  color: "#ffffff",
                   background: "transparent",
                   outline: "none",
                   border: "none",
-                  width: "100%",
                 }}
               />
+
               <button
                 onClick={() => ask()}
                 className="w-6 h-6 rounded-lg bg-emerald-400 flex items-center justify-center hover:bg-emerald-300 transition-colors flex-shrink-0"
@@ -160,12 +170,14 @@ export default function HeroSection() {
               </button>
             </div>
 
+            {/* Chips */}
             {!answer && !loading && (
               <div className="flex flex-wrap gap-1.5 mt-2.5">
                 {chips.map((c) => (
                   <button
                     key={c}
                     onClick={() => ask(c)}
+                    className="hover:text-emerald-300 hover:border-emerald-400/30 transition-colors"
                     style={{
                       fontFamily: "Inter, sans-serif",
                       fontWeight: 400,
@@ -177,7 +189,6 @@ export default function HeroSection() {
                       backgroundColor: "rgba(255,255,255,0.04)",
                       cursor: "pointer",
                     }}
-                    className="hover:text-emerald-300 hover:border-emerald-400/30 transition-colors"
                   >
                     {c}
                   </button>
@@ -185,6 +196,7 @@ export default function HeroSection() {
               </div>
             )}
 
+            {/* Answer */}
             {(loading || answer) && (
               <div className="mt-3 pt-3 border-t border-white/6">
                 {loading ? (
