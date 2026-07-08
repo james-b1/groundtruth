@@ -51,11 +51,11 @@ export default function Home() {
       <header className="masthead">
         <h1>Groundtruth</h1>
         <p className="date">{brief ? formatDate(brief.date) : "Today's brief"}</p>
-        <p className="tagline">Five honest, sourced minutes on what's actually going right.</p>
+        <p className="tagline">Sourced trends that are getting better.</p>
         {brief?.asOf ? (
           <p className="as-of">Live data refreshed {formatAsOf(brief.asOf)}</p>
         ) : brief ? (
-          <p className="as-of">Using curated figures (run npm run refresh for live data)</p>
+          <p className="as-of">Curated figures. Run npm run refresh for live data.</p>
         ) : null}
       </header>
 
@@ -64,7 +64,7 @@ export default function Home() {
 
       {brief && (
         <>
-          <div className="section-label">What's getting better</div>
+          <div className="section-label">Trends</div>
           {brief.trends.map((t) => (
             <TrendCard key={t.id} trend={t} />
           ))}
@@ -75,9 +75,9 @@ export default function Home() {
           <ChatBox />
 
           <footer>
-            Every claim links to its source. Live cards pull the latest OWID figures when
-            available; curated cards use hand-checked fallbacks. The AI only rewrites
-            tone, never invents figures.
+            Each claim links to its source. Live cards use OWID when the cache is
+            fresh; otherwise the curated figures. Groq may rephrase summaries; it
+            does not add new numbers.
           </footer>
         </>
       )}

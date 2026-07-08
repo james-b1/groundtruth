@@ -1,5 +1,5 @@
 {
-  "_note": "Curated trends. Entries with a `live` block get their figures refreshed from a real API by `npm run refresh` (written to trends.cache.json); the values here are the verified fallback if a fetch fails. Entries without a `live` block are always static. The `summary` prose is curated tone the LLM lightly rewrites — it never invents figures.",
+  "_note": "Curated trends. Entries with a `live` block refresh via `npm run refresh` into trends.cache.json; values here are the fallback if a fetch fails. Entries without `live` stay static. Summary prose is curated; the LLM may rephrase it and must not invent figures.",
   "trends": [
     {
       "id": "extreme-poverty",
@@ -7,7 +7,7 @@
       "title": "Extreme poverty keeps falling",
       "metric": "9%",
       "metricLabel": "share of the world in extreme poverty, down from 38% in 1990",
-      "summary": "A generation ago, nearly 4 in 10 people lived in extreme poverty. Today it's under 1 in 10 — the steepest drop in human history, even as the global population grew by billions.",
+      "summary": "In 1990, nearly 4 in 10 people lived in extreme poverty. Today it's under 1 in 10, even as the global population grew by billions.",
       "source": {
         "name": "Our World in Data — World Bank (PIP)",
         "url": "https://ourworldindata.org/extreme-poverty"
@@ -51,7 +51,7 @@
       "title": "Renewables power a record share of the grid",
       "metric": "34%",
       "metricLabel": "of the world's electricity from renewables, up from a small fraction in 2000",
-      "summary": "Renewables now generate a record share of the world's electricity — close to a third — up from a small slice two decades ago, as solar and wind scale faster than any energy source in history.",
+      "summary": "Renewables now generate close to a third of the world's electricity, up from a small share two decades ago, driven by growth in solar and wind.",
       "source": {
         "name": "Our World in Data — Ember / Energy Institute",
         "url": "https://ourworldindata.org/renewable-energy"
@@ -73,7 +73,7 @@
       "title": "Guinea worm disease is nearly gone",
       "metric": "14",
       "metricLabel": "human cases in 2023, down from 3.5 million in 1986",
-      "summary": "Guinea worm disease once infected an estimated 3.5 million people a year. Thanks to a decades-long eradication campaign, there were just 14 reported human cases in 2023 — it's on track to be the second human disease ever eradicated, after smallpox.",
+      "summary": "Guinea worm disease once infected an estimated 3.5 million people a year. After a decades-long eradication campaign, there were 14 reported human cases in 2023. It is on track to be the second human disease eradicated after smallpox.",
       "source": {
         "name": "The Carter Center",
         "url": "https://www.cartercenter.org/health/guinea_worm/index.html"
@@ -85,7 +85,7 @@
       "title": "The ozone layer is healing",
       "metric": "~2066",
       "metricLabel": "projected year the ozone layer fully recovers",
-      "summary": "After the world phased out ozone-destroying chemicals under the Montreal Protocol, the ozone layer is on track to recover to 1980 levels by around 2066 over Antarctica. It's the clearest example of a global environmental problem being fixed by coordinated action.",
+      "summary": "After the world phased out ozone-destroying chemicals under the Montreal Protocol, the ozone layer is on track to recover to 1980 levels by around 2066 over Antarctica.",
       "source": {
         "name": "UN Environment Programme / WMO",
         "url": "https://www.unep.org/news-and-stories/story/ozone-layer-recovery-track-helping-avoid-global-warming-05degc"
@@ -95,7 +95,7 @@
   "contrast": {
     "headline": {
       "text": "\"Measles cases surge to highest level in years\"",
-      "note": "The kind of alarming, true-but-narrow headline that dominates a news feed.",
+      "note": "A true but narrow headline of the kind that fills a news feed.",
       "source": {
         "name": "Representative recent news headline",
         "url": "https://www.who.int/news-room/fact-sheets/detail/measles"

@@ -1,144 +1,102 @@
 # Groundtruth
 
-**A calm daily briefing on what's improving in the world, backed by real data.**
+Daily briefing on trends that are improving, with sources you can check.
 
-News is optimized for alarm. When disease rates, poverty, and clean-energy costs
-improve, it's either unreported or buried. Groundtruth gives a normal person five
-honest, sourced minutes on what's actually going right — every claim traces to a
-real, checkable source, written in plain English you can read at breakfast.
+News favors alarm. Gains in poverty, disease, and clean energy often get skipped or buried. Groundtruth shows a short set of sourced trends and one current headline set against the longer pattern.
 
-It sits between unrigorous "positive news" apps (no sourcing) and rigorous data
-tools like Our World in Data (trustworthy, but built for researchers).
+## Features
 
----
+- **Daily brief** — 3–5 trends (poverty, health, disease, clean energy, conservation) with a headline metric and a short takeaway
+- **Today vs. the trend** — one current headline next to the long-term number
+- **Chat** — ask about the brief data only; answers stay inside that dataset
+- **Sources** — every claim links out
+- **Web UI** — no login
 
-## What it does
+## Stack
 
-- **Daily brief** — 3–5 sourced trends (poverty, health, disease, clean energy,
-  conservation), each with a headline metric and a plain-English takeaway.
-- **Today vs. the trend** — one alarming-but-narrow current headline paired
-  against the relevant long-term trend.
-- **Ask about the data** — a small chat box grounded strictly in the sourced
-  dataset ("What's improving in energy?"). It never invents numbers.
-- **Sources on every claim** — each card links to the underlying data.
-- **Clean, mobile-friendly UI** — no login, no clutter.
+| Piece | Choice |
+| ----- | ------ |
+| Framework | Next.js (App Router) |
+| LLM | Groq (`llama-3.3-70b-versatile`) via `fetch` |
+| Data | `data/trends.json` plus optional OWID refresh cache |
+| Endpoints | `GET /api/brief`, `POST /api/chat`, `POST /api/refresh` |
+| Hosting | Local; Vercel free tier if needed |
 
----
-
-## Tech stack
-
-| Piece      | Choice                                                              |
-| ---------- | ------------------------------------------------------------------ |
-| Framework  | Next.js (App Router) — React frontend + API routes in one codebase |
-| LLM        | Groq API (`llama-3.3-70b-versatile`) via a tiny `fetch` wrapper     |
-| Data       | Curated, hand-verified JSON (`data/trends.json`)                    |
-| Endpoints  | `GET /api/brief`, `POST /api/chat`                                  |
-| Hosting    | Runs locally; deploys to Vercel free tier                          |
-
-The LLM **only rewrites tone** — a strict system prompt forbids adding or
-changing any figure. If Groq is unavailable (or no key is set), the app falls
-back to the curated summaries, so it's always functional.
-
----
+Groq rewrites tone only. Missing or failed keys fall back to curated summaries.
 
 ## Getting started
 
 ```bash
-# 1. Install
 npm install
-
-# 2. (Optional but recommended) add a Groq key for LLM rewrites + chat
 cp .env.example .env
-# then paste your key from https://console.groq.com/keys into GROQ_API_KEY
-
-# 3. Run
+# optional: set GROQ_API_KEY from https://console.groq.com/keys
+npm run refresh   # optional: pull live OWID figures into the cache
 npm run dev
 ```
 
 Open <http://localhost:3000>.
 
-> **No API key?** The brief still renders using the curated summaries; only the
-> AI rewrite and the chat box need `GROQ_API_KEY`.
-
----
+Without `GROQ_API_KEY`, the brief still loads from curated or cached figures. Chat and LLM rewrites need the key.
 
 ## Project structure
 
 ```
 groundtruth/
 ├── app/
-│   ├── page.js              # Home — fetches /api/brief, renders the brief
+│   ├── page.js
 │   ├── layout.js
 │   ├── globals.css
 │   └── api/
-│       ├── brief/route.js   # GET  — builds today's brief (cached 1×/day)
-│       ├── chat/route.js    # POST — grounded chat over the dataset
-│       └── refresh/route.js # POST — rebuild the live-data cache on demand
+│       ├── brief/route.js
+│       ├── chat/route.js
+│       └── refresh/route.js
 ├── components/
 │   ├── TrendCard.js
 │   ├── ContrastBlock.js
 │   └── ChatBox.js
 ├── lib/
-│   ├── data.js              # reads live cache, falls back to curated JSON
-│   ├── groq.js              # minimal Groq (OpenAI-compatible) client
-│   ├── brief.js             # brief assembly + LLM rewrite + daily cache
-│   ├── fetchTrends.js       # fetch → normalize pipeline (never throws)
-│   ├── normalizeTrends.js   # merge live figures into the common trend shape
-│   ├── refreshTrends.js     # run pipeline + write cache (shared by CLI/route)
-│   ├── trendsCache.js       # read/write data/trends.cache.json
+│   ├── data.js
+│   ├── groq.js
+│   ├── brief.js
+│   ├── fetchTrends.js
+│   ├── normalizeTrends.js
+│   ├── refreshTrends.js
+│   ├── trendsCache.js
 │   └── sources/
-│       └── owid.js          # Our World in Data grapher CSV fetcher
+│       └── owid.js
 ├── scripts/
-│   └── refresh.js           # `npm run refresh` — rebuild the cache
+│   └── refresh.js
 └── data/
-    ├── trends.json          # curated, sourced trends + `live` configs
-    └── trends.cache.json    # generated by refresh (gitignored)
+    ├── trends.json
+    └── trends.cache.json   # gitignored; from npm run refresh
 ```
 
----
-
-## Data pipeline (how the brief stays live)
-
-Trends refresh from real APIs, with the curated JSON as a guaranteed fallback:
+## Data pipeline
 
 ```
 npm run refresh            OWID CSV → normalize → data/trends.cache.json
-        │                                              │
-   POST /api/refresh ───────────────────────────────► │
+        │
+   POST /api/refresh ──────┘
                                                        ▼
-GET /api/brief ──► lib/data.js: read cache ──► (missing/empty) ──► data/trends.json
+GET /api/brief ──► lib/data.js: cache if present, else trends.json
 ```
 
-- **Live trends** carry a `live` block in [`data/trends.json`](data/trends.json)
-  (which OWID series + how to format it). `npm run refresh` fetches the latest
-  value and a baseline year, writes `trends.cache.json`, and stamps it with
-  `asOf`.
-- **Static trends** (no `live` block — e.g. Guinea worm, ozone) always use the
-  curated figures. Those are also the **per-trend fallback**: if a fetch fails,
-  that one card falls back to its curated numbers and the brief still ships.
-- **Scheduling:** run `npm run refresh` from cron once a day, e.g.
-  `0 6 * * * cd /path/to/groundtruth && npm run refresh`.
+- Trends with a `live` block in [`data/trends.json`](data/trends.json) refresh from OWID. `npm run refresh` writes `trends.cache.json` and sets `asOf`.
+- Trends without `live` stay static. Failed fetches for a live trend keep that card's curated figures.
+- Cron example: `0 6 * * * cd /path/to/groundtruth && npm run refresh`.
 
-### Adding a live trend
+### Add a live trend
 
-1. Add an entry to `trends` in [`data/trends.json`](data/trends.json) with real
-   curated `metric`/`summary`/`source` (the fallback).
-2. Add a `live` block: `{ source, slug, entity, baselineYear, scale, decimals, unit, label }`.
-3. `npm run refresh` and confirm the printed metric looks right.
+1. Add curated `metric` / `summary` / `source` in `trends.json` (fallback).
+2. Add `live`: `{ source, slug, entity, baselineYear, scale, decimals, unit, label }`.
+3. Run `npm run refresh` and check the printed metric.
 
-### Adding a new source (beyond OWID)
+### Add a source besides OWID
 
-Add a fetcher under `lib/sources/` that returns
-`{ latest:{year,value}, baseline:{year,value}, sourceUrl }`, then register it in
-the `SOURCES` map in [`lib/fetchTrends.js`](lib/fetchTrends.js). Candidates from
-the PRD: World Bank API, GDELT/NewsAPI (contrast headline), IEA/IRENA.
+Add a fetcher under `lib/sources/` that returns `{ latest:{year,value}, baseline:{year,value}, sourceUrl }`, then register it in `SOURCES` in [`lib/fetchTrends.js`](lib/fetchTrends.js).
 
----
+## Scope
 
-## Scope (from the PRD)
+**In:** daily brief, today-vs-trend, grounded chat, sources, mobile-friendly web UI.
 
-**In:** daily brief, today-vs-trend contrast, grounded chat, sources, clean
-mobile UI.
-
-**Out (v1):** user accounts/login, live maps or real-time layers, native mobile
-app, localization/multi-language, email newsletter.
+**Out (v1):** accounts, live maps, native app, i18n, email newsletter.

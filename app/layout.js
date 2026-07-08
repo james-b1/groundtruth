@@ -1,8 +1,8 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "Groundtruth — what's getting better",
-  description: "A calm daily briefing on what's improving in the world, backed by real data.",
+  title: "Groundtruth",
+  description: "Daily sourced briefing on trends that are improving.",
 };
 
 export default function RootLayout({ children }) {

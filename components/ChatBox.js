@@ -61,7 +61,7 @@ export default function ChatBox() {
           Ask
         </button>
       </form>
-      <p className="hint">Answers come only from today's sourced data.</p>
+      <p className="hint">Answers stay inside today's sourced dataset.</p>
     </section>
   );
 }
