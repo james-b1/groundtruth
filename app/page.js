@@ -18,6 +18,20 @@ function formatDate(iso) {
   }
 }
 
+function formatAsOf(iso) {
+  try {
+    return new Date(iso).toLocaleString(undefined, {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+    });
+  } catch {
+    return null;
+  }
+}
+
 export default function Home() {
   const [brief, setBrief] = useState(null);
   const [error, setError] = useState(null);
@@ -38,6 +52,11 @@ export default function Home() {
         <h1>Groundtruth</h1>
         <p className="date">{brief ? formatDate(brief.date) : "Today's brief"}</p>
         <p className="tagline">Five honest, sourced minutes on what's actually going right.</p>
+        {brief?.asOf ? (
+          <p className="as-of">Live data refreshed {formatAsOf(brief.asOf)}</p>
+        ) : brief ? (
+          <p className="as-of">Using curated figures (run npm run refresh for live data)</p>
+        ) : null}
       </header>
 
       {error && <div className="state">{error}</div>}
@@ -56,8 +75,9 @@ export default function Home() {
           <ChatBox />
 
           <footer>
-            Every claim links to its source. Numbers are curated and verified; the AI only
-            rewrites them into plain English — it never invents figures.
+            Every claim links to its source. Live cards pull the latest OWID figures when
+            available; curated cards use hand-checked fallbacks. The AI only rewrites
+            tone, never invents figures.
           </footer>
         </>
       )}
