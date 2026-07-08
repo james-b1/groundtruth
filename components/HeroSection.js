@@ -2,13 +2,14 @@
 import { useState } from "react";
 import { Send, ChevronRight } from "lucide-react";
 import { GlobeVisualization } from "./GlobeVisualization";
+import { DEFAULT_RUNTIME_WEBPACK, DEFAULT_SERIF_FONT } from "next/dist/shared/lib/constants";
 
 const chips = ["What good happened today?", "Show me health trends", "Is poverty rising?"];
 
 const mockAnswer =
   "Based on World Bank data, extreme poverty has fallen from 36% of the global population in 1990 to under 9% today — lifting over 1.3 billion people out of deprivation, even as the world's population grew by 2.5 billion.";
 
-export function HeroSection() {
+export default function HeroSection() {
   const [input, setInput] = useState("");
   const [answer, setAnswer] = useState("");
   const [loading, setLoading] = useState(false);
