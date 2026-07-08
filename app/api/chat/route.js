@@ -4,6 +4,8 @@ import { groqChat, hasGroqKey } from "@/lib/groq";
 
 export const dynamic = "force-dynamic";
 
+const MAX_HISTORY = 6;
+
 /** Builds the system prompt from curated trends and contrast data. */
 function buildSystemPrompt() {
   const trends = getTrends();
@@ -28,19 +30,38 @@ Answer the user's question using ONLY the data below. Rules:
 - Never invent numbers or sources.
 - Be warm, concise, and jargon-free.
 - When you cite a figure, mention its source name.
+- Use prior turns in the conversation for follow-ups like "tell me more", but still stay inside this data.
 
 DATA:
 ${JSON.stringify(context, null, 2)}`;
 }
 
-/** Grounded chat over today's sourced dataset. */
+/** Keeps only valid user/assistant turns, capped to the last few. */
+function sanitizeHistory(history) {
+  if (!Array.isArray(history)) return [];
+
+  return history
+    .filter(
+      (turn) =>
+        turn &&
+        (turn.role === "user" || turn.role === "assistant") &&
+        typeof turn.content === "string" &&
+        turn.content.trim()
+    )
+    .map((turn) => ({ role: turn.role, content: turn.content.trim() }))
+    .slice(-MAX_HISTORY);
+}
+
+/** Grounded chat over today's sourced dataset. Supports optional multi-turn history. */
 export async function POST(req) {
-  let message;
+  let body;
   try {
-    ({ message } = await req.json());
+    body = await req.json();
   } catch {
     return NextResponse.json({ error: "Invalid request body." }, { status: 400 });
   }
+
+  const { message, history } = body ?? {};
 
   if (!message || typeof message !== "string") {
     return NextResponse.json({ error: "Please include a `message` string." }, { status: 400 });
@@ -57,6 +78,7 @@ export async function POST(req) {
     const reply = await groqChat({
       system: buildSystemPrompt(),
       user: message,
+      history: sanitizeHistory(history),
       temperature: 0.3,
     });
     return NextResponse.json({ reply });

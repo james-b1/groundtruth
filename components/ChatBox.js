@@ -12,6 +12,11 @@ export default function ChatBox() {
     const question = input.trim();
     if (!question || loading) return;
 
+    const history = messages.map((m) => ({
+      role: m.role === "bot" ? "assistant" : "user",
+      content: m.text,
+    }));
+
     setMessages((m) => [...m, { role: "user", text: question }]);
     setInput("");
     setLoading(true);
@@ -20,7 +25,7 @@ export default function ChatBox() {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: question }),
+        body: JSON.stringify({ message: question, history }),
       });
       const data = await res.json();
       const text = data.reply || data.error || "Something went wrong.";
@@ -56,7 +61,7 @@ export default function ChatBox() {
           Ask
         </button>
       </form>
-      <p className="hint">Answers come only from today's sourced data — no made-up numbers.</p>
+      <p className="hint">Answers come only from today's sourced data.</p>
     </section>
   );
 }
