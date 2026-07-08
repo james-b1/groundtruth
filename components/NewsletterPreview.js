@@ -182,7 +182,7 @@ export default function NewsletterPreview({ brief }) {
               sandbox=""
               srcDoc={html}
             />
-            <p className="newsletter-disclaimer">Preview only. No email was sent.</p>
+            <p className="newsletter-disclaimer">Preview only.</p>
           </div>
         </div>
       )}
