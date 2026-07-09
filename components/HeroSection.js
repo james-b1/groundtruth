@@ -40,7 +40,7 @@ export default function HeroSection() {
         </Reveal>
 
         <Reveal delay={80}>
-          <div className="w-full max-w-[420px] mx-auto lg:max-w-none border border-line bg-white p-4 panel-hover">
+          <div className="w-full max-w-[420px] mx-auto lg:max-w-none">
             <GlobeVisualization />
           </div>
         </Reveal>
